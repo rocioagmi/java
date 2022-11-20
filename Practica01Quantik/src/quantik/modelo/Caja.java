@@ -11,104 +11,119 @@ import quantik.util.*;
  *
  */
 public class Caja {
-	
+
 	/**
-	 * Atributo privado pieza
+	 * Conjunto de piezas que tenemos en la caja
 	 */
-	private Pieza pieza;
-	
+	Pieza [] piezasCaja = new Pieza [8];
+
+	/**
+	 * Contador de piezas en la caja
+	 */
+	private int contador;
+
+
 	/**
 	 * Atributo privado color
 	 */
 	private Color color;
-	
+
+
+
 	/**
-	 * Atributo privado figura
-	 */
-	private Figura figura;
-	
-	
-	/**
-	 * Constructor de la clase caja que carga ocho piezas nuevas 
+	 * Constructor de la clase caja que carga ocho piezas nuevas
 	 * 	del color que corresponda.
-	 * 
+	 *
 	 * @param color 	color del que queremos que sean las piezas
 	 */
 	public Caja(Color color) {
-		
+		this.color=color;
+		this.piezasCaja[0]=new Pieza(Figura.CILINDRO,color);
+		this.piezasCaja[1]=new Pieza(Figura.CILINDRO,color);
+		this.piezasCaja[2]=new Pieza(Figura.CONO,color);
+		this.piezasCaja[3]=new Pieza(Figura.CONO,color);
+		this.piezasCaja[4]=new Pieza(Figura.CUBO,color);
+		this.piezasCaja[5]=new Pieza(Figura.CUBO,color);
+		this.piezasCaja[6]=new Pieza(Figura.ESFERA,color);
+		this.piezasCaja[7]=new Pieza(Figura.ESFERA,color);
+		contador=8;
+
+
 	}
-	
-	
+
 	/**
 	 * Metodo que devuelve un clon en profundidad de la caja actual.
-	 * 
+	 *
 	 * @return Caja		clon de la caja actual.
 	 */
 	public Caja clonar() {
-		return new Caja(this.color);
+		Caja caja=new Caja(this.color);
+		caja.piezasCaja=this.piezasCaja.clone();
+		return caja;
 	}
-	
-	
+
+
 	/**
 	 * Nos permite consultar el color de las piezas de la caja.
-	 * 
+	 *
 	 * @return color 	color de las piezas de la caja.
 	 */
 	public Color consultarColor() {
 		return color;
 	}
-	
-	
+
+
 	/**
 	 * Este metodo devuelve un array con todas los clones de piezas
 	 * 	que tenemos en la caja.
-	 *  
+	 *
 	 * @return piezas 	array con las piezas que hay en la caja.
 	 */
 	public Pieza[] consultarPiezasDisponibles() {
-		Pieza [] piezasCaja = new Pieza [8];
-		for(int i = 0; i < piezasCaja.length; i++) {
-			piezasCaja[i] = this.pieza.clonar();
-		}
-		return piezasCaja;
+		return this.clonar().piezasCaja;
 	}
-	
-	
+
 	/**
 	 * Metodo que devuelve el numero de piezas que hay actualmente
 	 * 	en la caja.
-	 * 	
-	 * @return contador   entero que representa el numero de piezas. 
+	 *
+	 * @return contador   entero que representa el numero de piezas.
 	 */
 	public int contarPiezasActuales() {
-		int contador = 0;
-			for(int i = 0; i < 8; i++) {
-				contador++;
-			}
 		return contador;
 	}
-	
-	
+
+
 	/**
 	 * Consulta si hay una pieza disponible con la figura pasada como argumento.
 	 * @param figura  figura de la pieza que estamos buscando.
 	 * @return boolean True si la pieza esta disponinle y False en caso contrario.
 	 */
 	public boolean estaDisponible(Figura figura) {
-		
+
 		boolean encontrado = false;
-		
-		for(Pieza piezas : consultarPiezasDisponibles()) {
-			if(piezas.consultarFigura() == figura) {
+
+		for(Pieza pieza : this.piezasCaja) {
+			if(pieza!=null && pieza.consultarFigura().aTexto() == figura.aTexto()) {
 				encontrado = true;
 			}
 		}
 		return encontrado;
 	}
 
-	
+
 	public Pieza retirar(Figura figura) {
-		return null;
+
+		Pieza pieza=null;
+		for(int i=0;i<this.piezasCaja.length;i++) {
+			if(this.piezasCaja[i]!=null && this.piezasCaja[i].consultarFigura().aTexto() == figura.aTexto()) {
+				pieza=this.piezasCaja[i].clonar();
+				this.piezasCaja[i] = null;
+				contador-=1;
+			}
+		}
+
+		return pieza;
 			
 	}
 	
