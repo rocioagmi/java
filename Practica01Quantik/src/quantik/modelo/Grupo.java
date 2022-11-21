@@ -1,7 +1,7 @@
 package quantik.modelo;
 import quantik.util.*;
 
-/**
+/** 
  * 
  * @author Rocio Agueda Miguel
  * @see quantik.util.Color
@@ -12,47 +12,104 @@ import quantik.util.*;
  */
 public class Grupo {
 	
-	private Celda[] celdas;
-	private Color color;
-	private Figura figura;
-	private Pieza pieza;
+	/**
+	 * Referencias a las cuatro celdas del tablero que conforman el grupo.
+	 */
+	private Celda [] celdas = new Celda [4];
 	
-
+	
+	/**
+	 * Atributo privado celda.
+	 */
+	private Celda celda;
+	
+	
+	/**
+	 * Constructor de la clase que se inicializa con las referencias
+	 * 	a las cuatro celdas del tablero que conforman el grupo.
+	 * 
+	 * @param celdas	array con las referencias a las celdas del grupo.
+	 */
 	public Grupo(Celda[] celdas) {
-		celdas = new Celda[1];
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 4; j++) {
-				
-				celdas = new Celda[i];
-			}
+		for(int i = 0; i < this.celdas.length; i++) {
+			this.celdas[i] = celda.clonar();
 		}
 	}
 	
-	public String aTexto() {
+	
+	/**
+	 * Metodo que devuelve un clon en profundidad del grupo actual.
+	 * 
+	 * @return grupo	clon de Grupo.
+	 */
+	public Grupo clonar() {
+		Grupo grupo = new Grupo(this.celdas);
+		grupo.celdas = celdas.clone();
+		return grupo;
+	}
+	
+	
+	/**
+	 * Devuelve el numero de celdas que componen actualmente el grupo.
+	 * 
+	 * @return int	numero de celdas que forman el grupo.
+	 */
+	public int consultarNumeroCeldas() {
+		return this.celdas.length;
+	
 		
 	}
 	
-	public Pieza clonar() {
+	
+	/**
+	 * Devuelve el numero de piezas que se encuentran actualmente en las celdas
+	 *  del grupo.
+	 *  
+	 * @return int	numero de piezas que estan en las celdas del grupo.
+	 */
+	public int consultarNumeroPiezas() {
 		
 	}
 	
-	public Color consultarColor() {
+	
+	/**
+	 * Metodo que comprueba si existe una celda en el grupo igual a la celda
+	 *  pasada como argumento.
+	 *  
+	 * @param celdaABuscar celda que queremos saber si esta en el grupo.
+	 * @return boolean	True si la celda esta en el grupo y False en caso contrario.
+	 */
+	public boolean contieneCelda(Celda celdaABuscar) {
 		
 	}
 	
-	public Figura consultarFigura() {
-		
-	}
 	
-	public boolean equals(Object obj) {
-		
-	}
-	
+	/**
+	 * Comprueba si hay cuatro piezas con cuatro figuras diferentes, 
+	 *  sin tener en cuenta el color de estas.
+	 * 
+	 * @return boolean  True si hay cuatro piezas con figuras distintas en el grupo
+	 * 						y False en caso contrario.
+	 */
 	public boolean estaCompletoConFigurasDiferentes() {
 		
 	}
 	
+	
+	/**
+	 * Comprueba si en las celdas del grupo hay alguna pieza que tiene la misma figura
+	 *  de color contrario al pasado como argumento.
+	 * 
+	 * @param figura	figura de la pieza que estamos buscando.
+	 * @param color 	color contrario al de la figura que estoy buscando.
+	 * @return boolean 	True si encuentra una pieza con la misma figura y color contrario 
+	 * 						al pasado y False en caso contrario.
+	 */
 	public boolean existeMismaPiezaDelColorContrario(Figura figura, Color color) {
+		
+	}
+	
+	public boolean equals(Object obj) {
 		
 	}
 	
