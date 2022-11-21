@@ -1,7 +1,10 @@
 package quantik.modelo;
+import java.util.Arrays;
+import java.util.Objects;
+
 import quantik.util.*;
 
-/** 
+/**  
  * 
  * @author Rocio Agueda Miguel
  * @see quantik.util.Color
@@ -15,7 +18,7 @@ public class Grupo {
 	/**
 	 * Referencias a las cuatro celdas del tablero que conforman el grupo.
 	 */
-	private Celda [] celdas = new Celda [4];
+	private Celda [] celdas = new Celda [3];
 	
 	
 	/**
@@ -104,10 +107,8 @@ public class Grupo {
 	public boolean estaCompletoConFigurasDiferentes() {
 		boolean sonDistintos = false;
 		for(int i = 0; i < this.celdas.length; i++) {
-			for(int j = 0; j < this.celdas.length; j++) {
-				if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura() != celdas[j].consultarPieza().consultarFigura() ) {
-					sonDistintos = true;
-				}
+			if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura().aTexto() != celdas[i + 1].consultarPieza().consultarFigura().aTexto() ) {
+				sonDistintos = true;
 			}
 		} return sonDistintos;
 	}
@@ -115,7 +116,7 @@ public class Grupo {
 	
 	/**
 	 * Comprueba si en las celdas del grupo hay alguna pieza que tiene la misma figura
-	 *  de color contrario al pasado como argumento.
+	 *  y es de color contrario al pasado como argumento.
 	 * 
 	 * @param figura	figura de la pieza que estamos buscando.
 	 * @param color 	color contrario al de la figura que estoy buscando.
@@ -125,26 +126,39 @@ public class Grupo {
 	public boolean existeMismaPiezaDelColorContrario(Figura figura, Color color) {
 		boolean existe = false;
 		for(int i = 0; i < this.celdas.length; i++) {
-			if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura() == celdas[i + 1].consultarPieza().consultarFigura()) {
-				if(celdas[i].consultarPieza().consultarColor().obtenerContrario() != celdas[i + 1].consultarPieza().consultarColor(){
-					
+			if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura().aTexto() == figura.aTexto()){
+				if(celdas[i].consultarPieza().consultarColor().toChar() == color.obtenerContrario().toChar()){
 					existe = true;
 				}
-		}
-			
-		} return existe;
-	}
+			}
+		}return existe;	
+	} 
 	
+	
+	@Override
 	public boolean equals(Object obj) {
-		
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Grupo other = (Grupo) obj;
+		return Objects.equals(celda, other.celda) && Arrays.equals(celdas, other.celdas);
 	}
 	
+	@Override
 	public int hashCode() {
-		
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(celdas);
+		result = prime * result + Objects.hash(celda);
+		return result;
 	}
 	
+	@Override
 	public String toString() {
-		
+		return "Grupo [celdas=" + Arrays.toString(celdas) + ", celda=" + celda + "]";
 	}
 }
 

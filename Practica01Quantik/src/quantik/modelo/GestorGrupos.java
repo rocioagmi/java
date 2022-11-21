@@ -1,5 +1,5 @@
 package quantik.modelo;
-
+import quantik.util.*;
 /**
  * 
  * @author Rocio Agueda Miguel
