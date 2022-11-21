@@ -56,8 +56,6 @@ public class Grupo {
 	 */
 	public int consultarNumeroCeldas() {
 		return this.celdas.length;
-	
-		
 	}
 	
 	
@@ -68,7 +66,13 @@ public class Grupo {
 	 * @return int	numero de piezas que estan en las celdas del grupo.
 	 */
 	public int consultarNumeroPiezas() {
-		
+		int contador = 0;
+		for(Celda celda : this.celdas) {
+			if(celda.estaVacia() != true) {
+				contador ++;
+			}
+		}
+		return contador;
 	}
 	
 	
@@ -80,7 +84,13 @@ public class Grupo {
 	 * @return boolean	True si la celda esta en el grupo y False en caso contrario.
 	 */
 	public boolean contieneCelda(Celda celdaABuscar) {
-		
+		boolean contiene = false;
+		for(int i = 0; i < this.celdas.length; i++) {
+			if(this.celdas[i] == celdaABuscar ) {
+				contiene = true;
+			}
+		}
+		return contiene;
 	}
 	
 	
@@ -92,7 +102,14 @@ public class Grupo {
 	 * 						y False en caso contrario.
 	 */
 	public boolean estaCompletoConFigurasDiferentes() {
-		
+		boolean sonDistintos = false;
+		for(int i = 0; i < this.celdas.length; i++) {
+			for(int j = 0; j < this.celdas.length; j++) {
+				if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura() != celdas[j].consultarPieza().consultarFigura() ) {
+					sonDistintos = true;
+				}
+			}
+		} return sonDistintos;
 	}
 	
 	
@@ -106,7 +123,16 @@ public class Grupo {
 	 * 						al pasado y False en caso contrario.
 	 */
 	public boolean existeMismaPiezaDelColorContrario(Figura figura, Color color) {
-		
+		boolean existe = false;
+		for(int i = 0; i < this.celdas.length; i++) {
+			if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura() == celdas[i + 1].consultarPieza().consultarFigura()) {
+				if(celdas[i].consultarPieza().consultarColor().obtenerContrario() != celdas[i + 1].consultarPieza().consultarColor(){
+					
+					existe = true;
+				}
+		}
+			
+		} return existe;
 	}
 	
 	public boolean equals(Object obj) {
