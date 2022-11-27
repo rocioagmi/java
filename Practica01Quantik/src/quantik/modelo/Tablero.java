@@ -63,7 +63,7 @@ public class Tablero {
 				if(matriz[i][j].estaVacia()) {
 					s = s + "-";
 				} else {
-					s = s + matriz[i][j].consultarPieza().toString();
+					s = s + matriz[i][j].consultarPieza().aTexto();
 				}
 				s = s + "\t";
 			}
@@ -80,7 +80,11 @@ public class Tablero {
 	 */
 	public Tablero clonar() {
 		Tablero tablero = new Tablero();
-		tablero.colocar(fila, columna, pieza);
+		for (int i = 0; i < fila; i++) {
+			for (int j = 0; j < columna; j++) {
+				tablero.matriz[i][j] = this.matriz[i][j].clonar() ;
+			}
+		}
 		return tablero;
 		
 	}
@@ -128,7 +132,7 @@ public class Tablero {
 	
 	
 	public boolean estaEnTablero(int fila, int columna) {
-		if (fila < consultarNumeroFilas() && columna < consultarNumeroColumnas() && fila > 0 && columna > 0) {
+		if (fila > 0 && columna > 0 && fila < consultarNumeroFilas() && columna < consultarNumeroColumnas()) {
 			return true;
 		} else {
 			return false;
