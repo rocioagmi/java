@@ -3,7 +3,7 @@ import java.util.Objects;
 
 import quantik.util.*;
 
-/** 
+/**
  * 
  * @author Rocio Agueda Miguel
  * @version 1.0

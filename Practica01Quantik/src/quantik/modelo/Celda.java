@@ -37,19 +37,16 @@ public class Celda {
 		this.fila = fila;
 		this.columna = columna;
 		this.pieza = null;
-	} 
+	}
 	
-	 
 	/**
 	 * Metodo que devuelve un clon en profundidad de la celda actual.
 	 * 
 	 * @return celda clon de la celda actual.
 	 */
 	public Celda clonar() {
-		Celda celda = new Celda(this.fila, this.columna);
-		Pieza pieza = this.consultarPieza();
-		celda.colocar(pieza);
-		return celda;
+		//pieza.clonar();
+		return new Celda(this.fila, this.columna);
 	}
 	
 	/**
@@ -74,10 +71,7 @@ public class Celda {
 	
 	
 	public Pieza consultarPieza() {
-		if (pieza != null) {
-			return this.pieza.clonar();
-		}
-		return null;
+		return pieza;
 	}
 	
 	

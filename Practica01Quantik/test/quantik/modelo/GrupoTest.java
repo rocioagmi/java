@@ -75,7 +75,7 @@ public class GrupoTest {
 		grupo = new Grupo(celdas);
 	}
 
-	/** 
+	/**
 	 * Comprueba que el grupo tiene cuatro celdas.
 	 */
 	@DisplayName("Comprobar que se han instanciado las celdas del grupo.")
