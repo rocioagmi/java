@@ -18,9 +18,8 @@ public class Grupo {
 	/**
 	 * Referencias a las cuatro celdas del tablero que conforman el grupo.
 	 */
-	private Celda [] celdas = new Celda [3];
 	
-	
+	 
 	/**
 	 * Atributo privado celda.
 	 */
@@ -34,9 +33,7 @@ public class Grupo {
 	 * @param celdas	array con las referencias a las celdas del grupo.
 	 */
 	public Grupo(Celda[] celdas) {
-		for(int i = 0; i < this.celdas.length; i++) {
-			this.celdas[i] = celda.clonar();
-		}
+		
 	}
 	
 	
@@ -47,6 +44,7 @@ public class Grupo {
 	 */
 	public Grupo clonar() {
 		Grupo grupo = new Grupo(this.celdas);
+		
 		grupo.celdas = celdas.clone();
 		return grupo;
 	}

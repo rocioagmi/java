@@ -58,9 +58,12 @@ public class Caja {
 	 * @return Caja		clon de la caja actual.
 	 */
 	public Caja clonar() {
-		Caja caja = new Caja(this.color);
-		caja.piezasCaja = this.piezasCaja.clone();
-		return caja;
+		Caja cajaClon = new Caja(this.color);
+		//cajaClon.piezasCaja = this.piezasCaja.clone();
+		for(int i = 0; i < this.piezasCaja.length; i++) {
+			cajaClon.piezasCaja[i].consultarFigura();
+		}
+		return cajaClon;
 	}
 	
 	
@@ -92,7 +95,7 @@ public class Caja {
 	 * @return contador   entero que representa el numero de piezas. 
 	 */
 	public int contarPiezasActuales() {
-		return contador;
+		return contador; 
 	}
 	
 	
@@ -115,17 +118,16 @@ public class Caja {
 
 	
 	public Pieza retirar(Figura figura) {
-		
+		 
 		Pieza pieza = null;
 		for(int i = 0; i < this.piezasCaja.length; i++) {
 			if(this.piezasCaja[i] != null && this.piezasCaja[i].consultarFigura().aTexto() == figura.aTexto()) {
 				pieza = this.piezasCaja[i].clonar();
 				this.piezasCaja[i] = null;
-				contador -= 1;
+				contador -= 1; 
 			}	
 		}
 		return pieza;
-			
 	}
 	
 	
