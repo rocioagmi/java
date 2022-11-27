@@ -18,12 +18,9 @@ public class Grupo {
 	/**
 	 * Referencias a las cuatro celdas del tablero que conforman el grupo.
 	 */
+	private Celda[] celdas = new Celda [4];
 	
-	 
-	/**
-	 * Atributo privado celda.
-	 */
-	private Celda celda;
+	
 	
 	
 	/**
@@ -33,19 +30,23 @@ public class Grupo {
 	 * @param celdas	array con las referencias a las celdas del grupo.
 	 */
 	public Grupo(Celda[] celdas) {
-		
+		this.celdas = clonarCeldas(celdas);
 	}
 	
-	
+	private Celda [] clonarCeldas(Celda [] celdas) {
+		Celda [] celdasClonadas = new Celda [celdas.length]; 
+		for(int i = 0; i < celdas.length; i++) {
+			celdasClonadas[i] = celdas[i].clonar();
+		}
+		return celdasClonadas;
+	}
 	/**
 	 * Metodo que devuelve un clon en profundidad del grupo actual.
 	 * 
 	 * @return grupo	clon de Grupo.
 	 */
 	public Grupo clonar() {
-		Grupo grupo = new Grupo(this.celdas);
-		
-		grupo.celdas = celdas.clone();
+		Grupo grupo = new Grupo(clonarCeldas(this.celdas));
 		return grupo;
 	}
 	
@@ -85,13 +86,12 @@ public class Grupo {
 	 * @return boolean	True si la celda esta en el grupo y False en caso contrario.
 	 */
 	public boolean contieneCelda(Celda celdaABuscar) {
-		boolean contiene = false;
 		for(int i = 0; i < this.celdas.length; i++) {
-			if(this.celdas[i] == celdaABuscar ) {
-				contiene = true;
+			if(this.celdas[i].equals(celdaABuscar) ) {
+				return true;
 			}
 		}
-		return contiene;
+		return false;
 	}
 	
 	
@@ -103,12 +103,44 @@ public class Grupo {
 	 * 						y False en caso contrario.
 	 */
 	public boolean estaCompletoConFigurasDiferentes() {
-		boolean sonDistintos = false;
-		for(int i = 0; i < this.celdas.length; i++) {
-			if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura().aTexto() != celdas[i + 1].consultarPieza().consultarFigura().aTexto() ) {
-				sonDistintos = true;
+		boolean conoEncontrado = false;
+		boolean cilindroEncontrado = false;
+		boolean cuboEncontrado = false;
+		boolean esferaEncontrado = false;
+		
+		
+		for(Celda a : celdas) {
+			if(a!= null && a.consultarPieza() != null && a.consultarPieza().consultarFigura() != null) {
+				String figuraActual = a.consultarPieza().consultarFigura().aTexto();
+				if(figuraActual == Figura.CONO.aTexto()) {
+					if(conoEncontrado) {
+						return false;
+					} else {
+						conoEncontrado = true;
+					}
+				}else if ( figuraActual == Figura.CILINDRO.aTexto()) {
+					if(cilindroEncontrado) {
+						return false;
+					} else {
+						cilindroEncontrado = true;
+					}
+				} else if ( figuraActual == Figura.CUBO.aTexto()) {
+				
+					if(cuboEncontrado) {
+						return false;
+					} else {
+						cuboEncontrado = true;
+					}
+				} else {
+					if(esferaEncontrado) {
+						return false;
+					} else {
+						esferaEncontrado = true;
+					}
+				}
+				return true;
 			}
-		} return sonDistintos;
+		} return false;
 	}
 	
 	
@@ -122,14 +154,13 @@ public class Grupo {
 	 * 						al pasado y False en caso contrario.
 	 */
 	public boolean existeMismaPiezaDelColorContrario(Figura figura, Color color) {
-		boolean existe = false;
-		for(int i = 0; i < this.celdas.length; i++) {
-			if(celdas[i].consultarPieza() != null && celdas[i].consultarPieza().consultarFigura().aTexto() == figura.aTexto()){
-				if(celdas[i].consultarPieza().consultarColor().toChar() == color.obtenerContrario().toChar()){
-					existe = true;
-				}
+		
+		Pieza pieza = new Pieza(figura, color.obtenerContrario());
+		for(Celda a : celdas) {
+			if(a.consultarPieza().equals(pieza)) {
+				return true;
 			}
-		}return existe;	
+		}return false;
 	} 
 	
 	
